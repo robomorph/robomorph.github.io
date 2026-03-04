@@ -13,8 +13,7 @@ import astroExpressiveCode from "astro-expressive-code";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://kevinxqiu.github.io",
-  base: "/robomorph-project-page",
+  site: "https://robomorph.github.io",
   vite: {
     plugins: [tailwindcss()],
   },
