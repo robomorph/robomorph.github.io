@@ -2,18 +2,27 @@
 title: "RoboMorph: Evolving Robot Morphology using Large Language Models"
 authors:
   - name: Kevin Qiu
-    institution: University of Warsaw, IDEAS NCBR
+    notes: ["1", "2"]
   - name: Władysław Pałucki
-    institution: University of Warsaw, IDEAS NCBR
+    notes: ["1", "2"]
   - name: Krzysztof Ciebiera
-    institution: University of Warsaw, IDEAS NCBR, Nomagic
+    notes: ["1", "2", "3"]
   - name: Paweł Fijałkowski
-    institution: University of Warsaw, IDEAS NCBR
+    notes: ["1", "2"]
   - name: Marek Cygan
-    institution: University of Warsaw, IDEAS NCBR, Nomagic
+    notes: ["1", "2", "3"]
   - name: Łukasz Kuciński
-    institution: IDEAS NCBR, Polish Academy of Sciences
+    notes: ["2", "4"]
 conference: "IEEE International Conference on Robotics and Automation (ICRA) 2026"
+notes:
+  - symbol: "1"
+    text: University of Warsaw
+  - symbol: "2"
+    text: IDEAS NCBR
+  - symbol: "3"
+    text: Nomagic
+  - symbol: "4"
+    text: Polish Academy of Sciences
 links:
   - name: Paper
     url: /robomorph-paper.pdf
@@ -22,26 +31,23 @@ links:
     url: https://github.com/kevinxqiu/robomorph
     icon: ri:github-line
   - name: arXiv
-    url: "#"
+    url: https://arxiv.org/abs/2407.08626
     icon: academicons:arxiv
 theme: light
 favicon: favicon.svg
 description: "RoboMorph uses LLMs as evolutionary mutation operators to discover diverse, terrain-specialized robot morphologies — including wheeled quadrupeds and hexapods — without hand-crafted design heuristics."
 ---
 
-import Video from "./components/Video.astro";
 import HighlightedSection from "./components/HighlightedSection.astro";
-import SmallCaps from "./components/SmallCaps.astro";
 import Figure from "./components/Figure.astro";
 import Picture from "./components/Picture.astro";
 import TwoColumns from "./components/TwoColumns.astro";
 import Wide from "./components/Wide.astro";
-import Carousel from "./components/Carousel.astro";
-import CarouselSlide from "./components/CarouselSlide.astro";
 
 import robomorph from "./assets/images/robomorph.png";
 import overview from "./assets/images/overview.png";
 import topDesigns from "./assets/images/top_designs.png";
+import morphologies from "./assets/images/morphologies.png";
 import terrainPlot from "./assets/images/terrain_plot.png";
 import bestSeed from "./assets/images/best_seed.png";
 import rl from "./assets/images/rl.png";
@@ -49,7 +55,9 @@ import mpc from "./assets/images/mpc.png";
 import ablateLlm from "./assets/images/ablate_llm.png";
 import ablateEvo from "./assets/images/ablate_evo.png";
 
-**RoboMorph** uses LLMs as evolutionary mutation operators to discover diverse, terrain-specialized robot morphologies — including wheeled quadrupeds and hexapods — without hand-crafted design heuristics.
+<Wide>
+  <Picture src={morphologies} alt="Diverse robot morphologies evolved by RoboMorph across four terrains" />
+</Wide>
 
 <HighlightedSection>
 
@@ -68,7 +76,7 @@ Designing robot morphologies is time-consuming, dependent on human intuition, an
 </Figure>
 </Wide>
 
-RoboMorph operates as an iterative evolutionary loop. At each generation, the LLM receives a structured prompt containing the best-performing designs from the current population along with their fitness scores. It proposes a mutation — modifying limb topology, joint types, or body proportions — and outputs a new robot description in a domain-specific grammar. The candidate is compiled into a MuJoCo XML model, trained with reinforcement learning, and evaluated on terrain-specific locomotion. The resulting fitness score feeds back into the population for the next round of selection and mutation.
+RoboMorph operates as an iterative evolutionary loop. At each generation, the LLM receives a structured prompt containing the best-performing designs from the current population. It proposes a mutation — modifying limb topology, joint types, or body proportions — and outputs a new robot description in a domain-specific grammar. The candidate is compiled into a MuJoCo XML model, trained with reinforcement learning, and evaluated on terrain-specific locomotion. The resulting fitness score feeds back into the population for the next round of selection and mutation.
 
 <Figure>
   <Picture slot="figure" src={overview} alt="One iteration of the RoboMorph loop showing prompt, design, and fitness at each stage" />
@@ -150,7 +158,3 @@ We isolate the impact of LLM model choice and evolutionary strategy on flat terr
   year={2026}
 }
 ```
-
-## Bibliography
-
-[^ref]
