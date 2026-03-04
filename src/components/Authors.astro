@@ -8,23 +8,17 @@ interface Props {
 const { authors } = Astro.props;
 ---
 
-<div class="links flex flex-row flex-wrap justify-center gap-x-8 gap-y-4">
+<div class="flex flex-row flex-wrap justify-center gap-x-6 gap-y-1 text-xl">
   {
-    authors.map((author) => (
-      <div class="flex flex-col items-center text-center">
-        <div class="flex flex-row text-xl">
-          {author.url ? <a href={author.url}>{author.name}</a> : author.name}
-          {author.notes && (
-            <sup class="text-xl">
-              {author.notes.map(
-                (note, index, array) =>
-                  note + (index < array.length - 1 ? "," : ""),
-              )}
-            </sup>
-          )}
-        </div>
-        {author.institution && <div>{author.institution}</div>}
-      </div>
+    authors.map((author, index) => (
+      <span>
+        {author.url ? <a href={author.url}>{author.name}</a> : author.name}
+        {author.notes && (
+          <sup class="text-sm text-zinc-500">
+            {author.notes.join(",")}
+          </sup>
+        )}
+      </span>
     ))
   }
 </div>

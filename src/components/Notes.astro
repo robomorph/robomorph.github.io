@@ -8,12 +8,11 @@ interface Props {
 const { notes } = Astro.props;
 ---
 
-<div class="text-center text-sm">
+<div class="flex flex-row flex-wrap justify-center gap-x-4 text-base text-zinc-500">
   {
-    // prettier-ignore
-    notes.map((note, index, array) =>
+    notes.map((note) =>
       <span>
-        <sup>{note.symbol}</sup>{note.text}{index < array.length - 1 ? "," : ""}
+        <sup class="text-xs">{note.symbol}</sup>{note.text}
       </span>
     )
   }
