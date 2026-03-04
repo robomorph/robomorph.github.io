@@ -46,8 +46,7 @@ import Wide from "./components/Wide.astro";
 
 import robomorph from "./assets/images/robomorph.png";
 import overview from "./assets/images/overview.png";
-import topDesigns from "./assets/images/top_designs.png";
-import morphologies from "./assets/images/morphologies.png";
+import topDesigns from "./assets/images/top_designs_1x4.png";
 import terrainPlot from "./assets/images/terrain_plot.png";
 import bestSeed from "./assets/images/best_seed.png";
 import rl from "./assets/images/rl.png";
@@ -56,7 +55,10 @@ import ablateLlm from "./assets/images/ablate_llm.png";
 import ablateEvo from "./assets/images/ablate_evo.png";
 
 <Wide>
-  <Picture src={morphologies} alt="Diverse robot morphologies evolved by RoboMorph across four terrains" />
+<Figure>
+  <Picture slot="figure" src={topDesigns} alt="Top robot designs evolved by RoboMorph for four terrains: ridged, flat, frozen, and beams" />
+  <Fragment slot="caption">Terrain-specialized robot morphologies discovered by RoboMorph. From left to right: a quadruped for ridged terrain, a wheeled quadruped for flat terrain, a hexapod for frozen terrain, and a compact crawler for beams terrain.</Fragment>
+</Figure>
 </Wide>
 
 <HighlightedSection>
@@ -71,28 +73,23 @@ Designing robot morphologies is time-consuming, dependent on human intuition, an
 
 <Wide>
 <Figure>
-  <Picture slot="figure" src={robomorph} alt="Overview of the RoboMorph framework showing the six-step evolutionary loop" />
+  <Picture slot="figure" src={robomorph} alt="Overview of the RoboMorph framework showing the six-step evolutionary design loop" />
   <Fragment slot="caption">Overview of the RoboMorph framework: (1) prompt construction with few-shot examples, (2) LLM generates a new design with reasoning, (3) compile to XML, (4) RL policy training in MuJoCo, (5) fitness evaluation, (6) evolutionary selection updates the population.</Fragment>
 </Figure>
 </Wide>
 
 RoboMorph operates as an iterative evolutionary loop. At each generation, the LLM receives a structured prompt containing the best-performing designs from the current population. It proposes a mutation — modifying limb topology, joint types, or body proportions — and outputs a new robot description in a domain-specific grammar. The candidate is compiled into a MuJoCo XML model, trained with reinforcement learning, and evaluated on terrain-specific locomotion. The resulting fitness score feeds back into the population for the next round of selection and mutation.
 
+<div class="mx-auto max-w-2xl">
 <Figure>
   <Picture slot="figure" src={overview} alt="One iteration of the RoboMorph loop showing prompt, design, and fitness at each stage" />
   <Fragment slot="caption">One iteration of RoboMorph. The prompt (blue), robot design (green), and fitness score (orange) are shown at each stage, with the modified element highlighted in red.</Fragment>
 </Figure>
+</div>
 
 ## Evolved Morphologies
 
 Each terrain yields a distinct, specialized morphology — evidence that the LLM leverages implicit biomechanical knowledge to propose functional body plans.
-
-<Wide>
-<Figure>
-  <Picture slot="figure" src={topDesigns} alt="Top robot designs evolved by RoboMorph for four different terrains" />
-  <Fragment slot="caption">Top robot designs from RoboMorph per terrain: ridged (top-left), flat (top-right), frozen (bottom-left), and beams (bottom-right). Each terrain yields a distinct morphology, including wheeled and hexapod designs not found by prior methods.</Fragment>
-</Figure>
-</Wide>
 
 **Ridged terrain.** A quadruped with elongated limbs and upward-swinging knee joints, enabling high foot clearance to step over periodic ridges.
 
@@ -102,7 +99,7 @@ Each terrain yields a distinct, specialized morphology — evidence that the LLM
 
 **Beams terrain.** A low-profile compact crawler with short limbs, morphologically similar to the flat design but adapted to clear overhead constraints.
 
-## Evolution
+## Results
 
 Fitness improves monotonically across generations, confirming that RoboMorph progressively discovers better designs through evolutionary selection.
 
@@ -116,10 +113,11 @@ Fitness improves monotonically across generations, confirming that RoboMorph pro
   <Fragment slot="caption">Evolution trajectory of the best-performing seed for each terrain, showing the morphologies discovered at key generations.</Fragment>
 </Figure>
 
-## Comparison with Robogrammar
+### Comparison with Robogrammar
 
 We compare RoboMorph's best designs against Robogrammar under both RL and MPC control. RoboMorph matches or exceeds Robogrammar across all terrains.
 
+<div class="mx-auto max-w-3xl">
 <TwoColumns>
   <Figure slot="left">
     <Picture slot="figure" src={rl} alt="Bar chart comparing RoboMorph and Robogrammar fitness under RL control" />
@@ -130,13 +128,15 @@ We compare RoboMorph's best designs against Robogrammar under both RL and MPC co
     <Fragment slot="caption">Evaluation using MPC control across 8 seeds per terrain.</Fragment>
   </Figure>
 </TwoColumns>
+</div>
 
 On flat terrain, RoboMorph's wheeled quadruped significantly outperforms Robogrammar's legged design. On frozen terrain, the hexapod's wide stance provides more efficient traction than Robogrammar's bipedal structure.
 
-## Ablation Studies
+### Ablation Studies
 
 We isolate the impact of LLM model choice and evolutionary strategy on flat terrain.
 
+<div class="mx-auto max-w-3xl">
 <TwoColumns>
   <Figure slot="left">
     <Picture slot="figure" src={ablateLlm} alt="Ablation comparing different LLM models on flat terrain" />
@@ -147,6 +147,7 @@ We isolate the impact of LLM model choice and evolutionary strategy on flat terr
     <Fragment slot="caption">Evolutionary prompting outperforms zero-shot and non-evolutionary baselines. Excluding fitness scores preserves exploration diversity.</Fragment>
   </Figure>
 </TwoColumns>
+</div>
 
 ## Citation
 
